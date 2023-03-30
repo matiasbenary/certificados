@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, ResponseType } from 'axios'
+import axios, { AxiosResponse, Method, ResponseType } from 'axios'
 import moment from 'moment'
 
 export const BASE_URL = import.meta.env.VITE_API_URL
@@ -29,8 +29,6 @@ const setExpireTokenLocalStorage = (res: Response) =>
     JSON.stringify(moment().add(res.expires_in, 's'))
   )
 
-const hasExpireToken = (expireToken: string) => expireToken !== null
-
 const isExpiredToken = (expireToken: string) => moment().diff(expireToken) <= 0
 
 const hasToken = (token: string) => token !== null
@@ -41,11 +39,7 @@ export const getToken = async () => {
   const expireToken = getExpireTokenLocalStorage()
 
   if (
-    !(
-      hasExpireToken(expireToken) &&
-      isExpiredToken(expireToken) &&
-      hasToken(token)
-    )
+    !(hasToken(expireToken) && isExpiredToken(expireToken) && hasToken(token))
   ) {
     const params = new FormData()
     params.set('grant_type', 'client_credentials')
@@ -75,9 +69,9 @@ export const getToken = async () => {
 
 export const apiCall = async (
   url: string,
-  data: object | null,
-  method: string,
-  responseType: ResponseType | undefined = 'json'
+  data?: object,
+  method: Method = 'GET',
+  responseType: ResponseType = 'json'
 ) => {
   const token = await getToken()
 
