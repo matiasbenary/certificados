@@ -21,8 +21,8 @@ describe('Certificate Form', () => {
       name: /ver validacion/i
     })
 
-    expect(input).toBeInTheDocument()
-    expect(button).toBeInTheDocument()
+    expect(input).toBeDefined()
+    expect(button).toBeDefined()
   })
 
   it('should show error when code is invalid', async () => {
@@ -39,6 +39,6 @@ describe('Certificate Form', () => {
 
     const alert = await screen.findByRole('alert')
 
-    expect(alert).toBeInTheDocument()
+    expect(alert).toBeDefined()
   })
 })

@@ -18,7 +18,7 @@ describe('NotFound', () => {
       name: /volver a la página principal/i
     })
 
-    expect(title).toBeInTheDocument()
-    expect(link).toBeInTheDocument()
+    expect(title).toBeDefined()
+    expect(link).toBeDefined()
   })
 })

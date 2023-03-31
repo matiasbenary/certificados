@@ -1,6 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
-import { describe } from 'vitest'
 
 import HomePage from './Home'
 
@@ -17,7 +16,7 @@ describe('Home', () => {
 
   it('should render carousel', () => {
     const carousel = screen.getByRole('region', { name: /carousel/i })
-    expect(carousel).toBeInTheDocument()
+    expect(carousel).toBeDefined()
   })
 
   it('should render form', () => {
@@ -26,7 +25,7 @@ describe('Home', () => {
       name: /ver validacion/i
     })
 
-    expect(input).toBeInTheDocument()
-    expect(button).toBeInTheDocument()
+    expect(input).toBeDefined()
+    expect(button).toBeDefined()
   })
 })
