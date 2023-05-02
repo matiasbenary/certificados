@@ -6,7 +6,7 @@ import { AppNavbar } from '@/components/navbar'
 
 export const AppLayout: FC = () => {
   return (
-    <div className="grid gap-5 bg-white">
+    <div className="grid gap-5 bg-[#f5f5f5]">
       <AppNavbar />
       <main className="min-h-screen">
         <Outlet />

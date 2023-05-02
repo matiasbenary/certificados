@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { IconProps, Icons } from '@/components/ui'
 import { siteConfig } from '@/config'
 
-export const Logo: FC<IconProps> = ({ fill = '#2CAAE1', width = 250 }) => {
+export const Logo: FC<IconProps> = ({ fill = '#2CAAE1', width = 175 }) => {
   return (
     <Link to="/">
       <h1 className="sr-only">{siteConfig.name}</h1>

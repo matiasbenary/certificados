@@ -12,14 +12,14 @@ const HomePage = () => {
   const [certificate, setCertificate] = useState<CertificateType | null>(null)
 
   return (
-    <div className="container mx-auto grid gap-10 p-2">
+    <div className="container max-w-6xl mx-auto grid gap-10 ">
       <Carousel>
         {[Banner1, Banner2, Banner3].map((banner, index) => (
           <a
+            key={`banner-${index}`}
             href={siteConfig.social.home}
             target="_blank"
             rel="noreferrer"
-            key={`banner-${index}`}
           >
             <img src={banner} alt={`Banner ${index}`} className="w-full" />
           </a>

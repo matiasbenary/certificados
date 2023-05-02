@@ -4,9 +4,9 @@ import { siteConfig } from '@/config'
 export const AppFooter = () => {
   return (
     <div className="bg-primary py-10 text-white">
-      <div className="container mx-auto flex flex-col justify-between gap-5 p-4 md:flex-row">
+      <div className="container max-w-6xl mx-auto flex flex-col justify-between gap-5 p-4 md:flex-row">
         <div className="flex flex-col items-center gap-8">
-          <Logo fill="white" />
+          <Logo fill="white" width={300} />
 
           <div className="flex gap-8">
             <a
