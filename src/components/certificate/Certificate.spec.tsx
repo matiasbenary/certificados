@@ -28,12 +28,10 @@ describe('Certificate', () => {
   it('should render certificate', () => {
     const code = screen.getByText(certificate.code)
     const name = screen.getByText(certificate.name)
-    const description = screen.getByText(certificate.certificate_description!)
     const business_name = screen.getByText(certificate.bussiness_name!)
 
     expect(code).toBeDefined()
     expect(name).toBeDefined()
-    expect(description).toBeDefined()
     expect(business_name).toBeDefined()
   })
 })

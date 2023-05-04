@@ -12,7 +12,7 @@ const HomePage = () => {
   const [certificate, setCertificate] = useState<CertificateType | null>(null)
 
   return (
-    <div className="container max-w-6xl mx-auto grid gap-10 ">
+    <div className="container mx-auto grid max-w-6xl gap-10 ">
       <Carousel>
         {[Banner1, Banner2, Banner3].map((banner, index) => (
           <a

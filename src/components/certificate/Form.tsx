@@ -1,22 +1,22 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { Alert, Button, Icons, Input, Spinner } from '@/components/ui'
 import { apiCall } from '@/lib'
 import { CertificateType } from '@/types'
 import { classNames, validCode } from '@/utils'
-import { useSearchParams } from 'react-router-dom'
 
 interface Props {
   setCertificate: (certificate: CertificateType) => void
 }
 
 export const CertificateForm: FC<Props> = ({ setCertificate }) => {
-  let [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [code, setCode] = useState('')
   const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const validteCertificate = async () => {
+  const validateCertificate = useCallback(async () => {
     setIsError(false)
 
     if (!validCode(code)) {
@@ -38,7 +38,7 @@ export const CertificateForm: FC<Props> = ({ setCertificate }) => {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [code, setCertificate, setSearchParams])
 
   useEffect(() => {
     if (!searchParams.has('code')) return
@@ -47,16 +47,16 @@ export const CertificateForm: FC<Props> = ({ setCertificate }) => {
 
     setCode(code)
 
-    validteCertificate()
-  }, [])
+    validateCertificate()
+  }, [searchParams, validateCertificate])
 
   return (
     <>
       <form
-        className="grid gap-4 rounded py-4 px-6 shadow md:grid-cols-5 md:items-end bg-white"
+        className="grid gap-4 rounded bg-white py-4 px-6 shadow md:grid-cols-5 md:items-end"
         onSubmit={(e) => {
           e.preventDefault()
-          validteCertificate()
+          validateCertificate()
         }}
       >
         <div className="grid gap-4 md:col-span-4">
@@ -82,7 +82,7 @@ export const CertificateForm: FC<Props> = ({ setCertificate }) => {
 
       {isError && (
         <Alert>
-          <div className="flex gap-4 items-center justify-center">
+          <div className="flex items-center justify-center gap-4">
             <Icons.alert />
             <p>El codigo ingresado no es válido</p>
           </div>
