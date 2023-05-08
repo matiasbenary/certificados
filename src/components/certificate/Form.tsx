@@ -30,7 +30,7 @@ export const CertificateForm: FC<Props> = ({ setCertificate }) => {
     try {
       const { data } = await apiCall(`getCertificateDate/${code.toUpperCase()}`)
       setCertificate({
-        ...data,
+        ...data?.certificate,
         code
       })
     } catch (error) {

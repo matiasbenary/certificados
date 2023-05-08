@@ -6,6 +6,8 @@ import { CertificateType } from '@/types'
 
 afterEach(cleanup)
 
+// TODO: Faltan tests
+
 describe('Certificate', () => {
   const certificate: CertificateType = {
     id: 123,
@@ -13,12 +15,12 @@ describe('Certificate', () => {
     bussiness_name: 'Empresa',
     id_number: '123456',
     title: 'Certificado de prueba',
-    activity_from: '2021-01-01',
-    activity_to: '2021-01-01',
     certificate_description: 'Este es un certificado de prueba',
-    creatorName: 'Juan',
     horas: '10',
-    code: 'AAAA-BBBB-CCCC-DDDD'
+    code: 'AAAA-BBBB-CCCC-DDDD',
+    activity_from: new Date(),
+    activity_to: new Date(),
+    creatorName: 'Pepe'
   }
 
   beforeEach(() => {

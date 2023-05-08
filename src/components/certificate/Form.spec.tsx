@@ -9,6 +9,8 @@ afterEach(cleanup)
 
 vi.mock('axios')
 
+// TODO: Faltan validar casos
+
 vi.mock('react-router-dom', async () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const actual = (await vi.importActual('react-router-dom')) as any
