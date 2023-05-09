@@ -17,7 +17,7 @@ vi.mock('react-router-dom', async () => {
   return {
     ...actual,
     useSearchParams: vi.fn(() => [
-      { has: () => true, get: () => '123' },
+      { has: () => true, get: () => 'UK6A-4J5H-09KO-7PSG' },
       () => true
     ])
   }
@@ -28,7 +28,7 @@ describe('Certificate Form', () => {
 
   beforeEach(() => {
     render(
-      <MemoryRouter initialEntries={['?code=123-123-123-123']}>
+      <MemoryRouter initialEntries={['?code=UK6A-4J5H-09KO-7PSG']}>
         <CertificateForm setCertificate={setCertificate} />
       </MemoryRouter>
     )
@@ -50,9 +50,7 @@ describe('Certificate Form', () => {
       name: /validar/i
     })
 
-    await user.type(input, '123')
-
-    expect(input.value).toBe('123')
+    expect(input.value).toBe('UK6A-4J5H-09KO-7PSG')
 
     await user.click(submitButton)
 
