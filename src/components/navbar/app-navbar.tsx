@@ -6,7 +6,7 @@ import { siteConfig } from '@/config'
 export const AppNavbar = () => {
   return (
     <header className="bg-white p-3 shadow-md">
-      <div className="container max-w-6xl mx-auto grid items-center justify-center gap-5 md:grid-cols-2">
+      <div className="container mx-auto grid max-w-6xl items-center justify-center gap-5 md:grid-cols-2">
         <Logo />
         <nav className="flex justify-end gap-2">
           {siteConfig.mainNav.map(({ title, href }, i) => {

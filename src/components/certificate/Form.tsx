@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { Alert, Button, Icons, Input, Spinner } from '@/components/ui'
@@ -7,48 +7,49 @@ import { CertificateType } from '@/types'
 import { classNames, validCode } from '@/utils'
 
 interface Props {
-  setCertificate: (certificate: CertificateType) => void
+  setCertificate: (certificate: CertificateType | null) => void
 }
 
 export const CertificateForm: FC<Props> = ({ setCertificate }) => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [code, setCode] = useState('')
+  const [code, setCode] = useState(searchParams.get('code') || '')
   const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const validateCertificate = useCallback(async () => {
+  const validateCertificate = async () => {
     setIsError(false)
+    setCertificate(null)
 
     if (!validCode(code)) {
+      setSearchParams()
       setIsError(true)
       return
     }
 
-    setSearchParams({ code: code.toUpperCase() })
-
     setIsLoading(true)
     try {
       const { data } = await apiCall(`getCertificateDate/${code.toUpperCase()}`)
+
+      if (!data?.certificate) throw new Error('No se encontró el certificado')
+
       setCertificate({
         ...data?.certificate,
         code
       })
+
+      setSearchParams({ code: code.toUpperCase() })
     } catch (error) {
       setIsError(true)
     } finally {
       setIsLoading(false)
     }
-  }, [code, setCertificate, setSearchParams])
+  }
 
   useEffect(() => {
-    if (!searchParams.has('code')) return
-
-    const code = searchParams.get('code') || ''
-
-    setCode(code)
-
+    if (!code) return
     validateCertificate()
-  }, [searchParams, validateCertificate])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
@@ -73,6 +74,7 @@ export const CertificateForm: FC<Props> = ({ setCertificate }) => {
               setCode(e.target.value)
             }}
             required
+            autoComplete="off"
           />
         </div>
         <Button className="w-full" type="submit" disabled={isLoading}>
